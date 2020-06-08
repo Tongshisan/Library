@@ -1,0 +1,16 @@
+{
+    "mysqlConfig": {
+        "database": "book",
+        "user": "root",
+        "password": "lizhishishabi",
+        "port": 3306,
+        "host": "localhost"
+    },
+    "redisConfig": {
+        "port": 6379,
+        "host": "localhost",
+        "password": "",
+        "family": 4,
+        "db": 0
+    }
+}
