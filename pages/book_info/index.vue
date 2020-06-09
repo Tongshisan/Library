@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>test</h1>
+    <!-- 种类数量条形图 -->
     <div id="bookInfo" style="width:100%;height: 440px"></div>
+    <!-- 种类占比图 -->
+    <div id="bookCategoryPie" style="width: 500px;height: 400px"></div>
   </div>
 </template>
 
@@ -40,11 +42,21 @@ export default {
     // 处理图书种类数量数据
     processBookCategoryAndCountData(data) {
       let vm = this;
-      let chartID = "bookInfo";
+      let chartIDBar = "bookInfo";
+      let chartIDPie = 'bookCategoryPie'
       let xData = data.data.body.data.map(item => item.book_type);
-      let dataArr = data.data.body.data.map(item => item.count);
-      let legend = data.data.body.data.map(item => item.book_type);
-      vm.drawBookCategoryCountChart(chartID, legend, xData, dataArr);
+      let barDataArr = data.data.body.data.map(item => item.count);
+      let legendBar = data.data.body.data.map(item => item.book_type);
+      let dataPie = data.data.body.data.map((item) => {
+        return {
+          name: item.book_type,
+          value: item.count
+        }
+      })
+      // 画种类数量条形图
+      vm.drawBookCategoryCountChart(chartIDBar, legendBar, xData, barDataArr);
+      // 画种类占比饼图
+      vm.drawBookCategoryCountPie(chartIDPie, dataPie)
     },
     // 画图书种类数量条形图
     drawBookCategoryCountChart(chartID, legend, xData, data) {
@@ -89,6 +101,20 @@ export default {
       window.onresize = () => {
         echart.resize();
       };
+    },
+    // 画图书种类占比图
+    drawBookCategoryCountPie(chartID, data) {
+      let vm = this
+      let myEchart = vm.$echarts.init(document.getElementById(chartID))
+      let option = {
+        series:[
+          {
+            type: 'pie',
+            data: data
+          }
+        ]
+      }
+      myEchart.setOption(option)
     }
   }
 };
