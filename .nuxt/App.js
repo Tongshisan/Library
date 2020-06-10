@@ -14,6 +14,8 @@ import '../assets/common.css'
 
 import '../assets/login.css'
 
+import '../assets/book/book_category.css'
+
 import _6f6c098b from '../layouts/default.vue'
 
 const layouts = { "_default": _6f6c098b }
